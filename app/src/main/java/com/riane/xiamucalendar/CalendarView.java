@@ -40,6 +40,7 @@ public class CalendarView extends ViewGroup{
         this.row = row;
     }
 
+    //设置Item的点击事件
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
@@ -57,6 +58,7 @@ public class CalendarView extends ViewGroup{
         this.adapter = adapter;
     }
 
+    //设置数据
     public void setData(List<CalendarBean> data,boolean isToday) {
         this.data = data;
         this.isToday=isToday;
@@ -72,17 +74,22 @@ public class CalendarView extends ViewGroup{
         }
 
         for (int i = 0; i < data.size(); i++) {
+            //获得设置的
             CalendarBean bean = data.get(i);
             View view = getChildAt(i);
+            //得到子布局的View, 重写adapter方法
             View chidView = adapter.getView(view, this, bean);
 
+            //得到的子View不为空，则添加到ViewGroup中
             if (view == null || view != chidView) {
                 addViewInLayout(chidView, i, chidView.getLayoutParams(), true);
             }
 
+            //如果是今天，和没被选中
             if(isToday&&selectPostion==-1){
+                //得到当天的年月日
                 int[]date=CalendarUtil.getYMD(new Date());
-                if(bean.year==date[0]&&bean.moth==date[1]&&bean.day==date[2]){
+                if(bean.year==date[0] && bean.moth==date[1] && bean.day==date[2]){
                     selectPostion=i;
                 }
             }else {
@@ -91,6 +98,7 @@ public class CalendarView extends ViewGroup{
                 }
             }
 
+            //被选中
             chidView.setSelected(selectPostion==i);
 
             setItemClick(chidView, i, bean);
@@ -134,6 +142,7 @@ public class CalendarView extends ViewGroup{
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
+        //父布局的宽度
         int parentWidth = MeasureSpec.getSize(MeasureSpec.makeMeasureSpec(widthMeasureSpec, MeasureSpec.EXACTLY));
 
         itemWidth = parentWidth / column;
@@ -147,6 +156,7 @@ public class CalendarView extends ViewGroup{
         if (params != null && params.height > 0) {
             itemHeight = params.height;
         }
+        //决定当前View的大小
         setMeasuredDimension(parentWidth, itemHeight * row);
 
 
@@ -167,7 +177,9 @@ public class CalendarView extends ViewGroup{
 
     private void layoutChild(View view, int postion, int l, int t, int r, int b) {
 
+        //每个子View所在的位置
         int cc = postion % column;
+        //每个子View占的多少份
         int cr = postion / column;
 
         int itemWidth = view.getMeasuredWidth();

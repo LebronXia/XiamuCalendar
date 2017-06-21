@@ -84,12 +84,12 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         >
-        <com.riane.xiamucalendar.CalendarView
-            android:id="@+id/calendarView"
+        <com.riane.xiamucalendar.CalendarDateView
+            android:id="@+id/calendarDateView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </com.riane.xiamucalendar.CalendarView>
+        </com.riane.xiamucalendar.CalendarDateView>
 
     </LinearLayout>
 </LinearLayout>

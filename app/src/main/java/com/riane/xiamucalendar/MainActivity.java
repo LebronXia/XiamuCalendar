@@ -12,13 +12,11 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.riane.xiamucalendar.CalendarFactory.getMonthOfDayList;
-
 public class MainActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.calendarView)
-    CalendarView mCalendarView;
+    @BindView(R.id.calendarDateView)
+    CalendarDateView mCalendarDateView;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         final int[] dateArr= CalendarUtil.getYMD(new Date());
-        mCalendarView = (CalendarView) findViewById(R.id.calendarView);
-        mCalendarView.setAdapter(new CalendarAdapter() {
+        mCalendarDateView = (CalendarDateView) findViewById(R.id.calendarDateView);
+        mCalendarDateView.setAdapter(new CalendarAdapter() {
             @Override
             public View getView(View convertView, ViewGroup parentView, CalendarBean bean) {
                 if (convertView == null){
@@ -55,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
                 return convertView;
             }
         });
-        mCalendarView.setData(getMonthOfDayList(dateArr[0],dateArr[1]-Integer.MAX_VALUE/2),true);
+
+        mCalendarDateView.setOnItemClickListener(new CalendarView.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int postion, CalendarBean bean) {
+
+            }
+        });
     }
 }
